@@ -22,6 +22,24 @@
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="mb-4">
+                                <label for="role" style="font-weight:700; font-size:0.85rem; color:#374151; display:block; margin-bottom:8px;">Login Sebagai</label>
+                                <div style="position:relative;">
+                                    <i class="bi bi-shield-lock" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#9ca3af;"></i>
+                                    <select id="role" name="role"
+                                        class="@error('role') is-invalid @enderror"
+                                        style="width:100%; padding:13px 16px 13px 44px; border:1.5px solid #e5e7eb; border-radius:12px; font-size:0.9rem; outline:none; transition:border .2s; background:#f9fafb; appearance:none;"
+                                        onfocus="this.style.borderColor='#f97316';this.style.background='#fff'"
+                                        onblur="this.style.borderColor='#e5e7eb';this.style.background='#f9fafb'">
+                                        <option value="user" @selected(old('role', 'user') === 'user')>User</option>
+                                        <option value="admin" @selected(old('role') === 'admin')>Admin</option>
+                                    </select>
+                                    @error('role')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
                                 <label for="email" style="font-weight:700; font-size:0.85rem; color:#374151; display:block; margin-bottom:8px;">Email Address</label>
                                 <div style="position:relative;">
                                     <i class="bi bi-envelope" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#9ca3af;"></i>
@@ -65,6 +83,11 @@
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
                             </button>
                         </form>
+
+                        <div style="background:#fff7ed; border-radius:12px; padding:14px 16px; margin-top:18px; font-size:0.82rem; color:#9a3412; border:1px solid #fed7aa;">
+                            <strong style="color:#7c2d12;">Login sekarang memakai role + verifikasi 2 langkah.</strong><br>
+                            Pilih portal login yang sesuai, lalu setelah kredensial benar sistem akan mengirim kode OTP 6 digit ke email Anda.
+                        </div>
 
                         <div style="text-align:center; margin-top:28px;">
                             <p style="color:#6b7280; font-size:0.88rem; margin-bottom:0;">

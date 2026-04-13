@@ -22,11 +22,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_code',
     ];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'two_factor_expires_at' => 'datetime',
     ];
 
     public function isAdmin(): bool

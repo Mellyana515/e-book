@@ -2580,9 +2580,9 @@
             <div class="profile-online"></div>
           </div>
           <div>
-            <div class="profile-name">Amanda</div>
-            <div class="profile-email">amanda@gmail.com</div>
-            <div class="profile-badge"><i class="ph ph-crown-simple"></i> Member Aktif</div>
+            <div class="profile-name">{{ Auth::user()->name ?? 'Amanda' }}</div>
+            <div class="profile-email">{{ Auth::user()->email ?? 'amanda@gmail.com' }}</div>
+            <div class="profile-badge"><i class="ph ph-crown-simple"></i> {{ Auth::check() && Auth::user()->isAdmin() ? 'Admin' : 'Member Aktif' }}</div>
           </div>
         </div>
         <button class="btn-edit-profile"><i class="ph ph-pencil-simple"></i> Edit Profil</button>
@@ -2873,11 +2873,30 @@
         <h2>Selamat Datang Kembali!</h2>
         <p>Login untuk melanjutkan perjalanan membaca Anda.</p>
 
-        <div class="form-group">
+        @if ($errors->any())
+          <div style="margin-bottom:16px;padding:12px 14px;border-radius:12px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:13px;line-height:1.6;">
+            {{ $errors->first() }}
+          </div>
+        @endif
+
+        <form id="spa-login-form" action="{{ route('login') }}" method="POST">
+          @csrf
+          <div class="form-group">
+            <label>Login Sebagai</label>
+            <div class="form-input-wrap">
+              <i class="ph ph-shield-check form-input-icon"></i>
+              <select id="login-role" name="role" class="form-input" style="appearance:none;padding-left:44px;">
+                <option value="user" @selected(old('role', 'user') === 'user')>User</option>
+                <option value="admin" @selected(old('role') === 'admin')>Admin</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
           <label>Email</label>
           <div class="form-input-wrap">
             <i class="ph ph-envelope form-input-icon"></i>
-            <input type="email" id="login-email" class="form-input" placeholder="nama@email.com">
+            <input type="email" id="login-email" name="email" class="form-input" placeholder="nama@email.com" value="{{ old('email') }}" required>
           </div>
         </div>
 
@@ -2893,11 +2912,19 @@
         </div>
 
         <div class="form-extras">
-          <label class="form-check"><input type="checkbox"> Ingat saya</label>
+          <label class="form-check"><input type="checkbox" name="remember"> Ingat saya</label>
           <a href="#" class="form-forgot">Lupa kata sandi?</a>
         </div>
 
-        <button class="btn-submit" onclick="performLogin()">Login</button>
+        <input type="hidden" name="password" id="login-password-hidden">
+
+        <button type="submit" class="btn-submit">Login</button>
+
+        </form>
+
+        <div style="margin-top:14px;padding:12px 14px;border-radius:12px;background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;font-size:13px;line-height:1.6;">
+          Setelah email, password, dan role sesuai, sistem akan mengirim kode OTP 6 digit ke email akun Anda.
+        </div>
 
         <div class="divider"><span>atau masuk dengan</span></div>
 
@@ -2929,7 +2956,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  let isLoggedIn = false;
+  let isLoggedIn = @json(Auth::check());
+  const authenticatedProfile = @json(Auth::check() ? ['name' => Auth::user()->name, 'email' => Auth::user()->email, 'photoUrl' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80'] : null);
   let pendingRedirectPage = 'payment-page';
   let selectedVABank = 'BCA';
   let selectedWallet = 'GoPay';
@@ -3339,12 +3367,8 @@
 
   // ─── AUTH ───
   function performLogin() {
-    isLoggedIn = true;
-    const email = document.getElementById('login-email').value || 'user@gmail.com';
-    const profile = getProfileByEmail(email);
-    updateProfile(profile.name, profile.email, profile.photoUrl);
-    showToast(`Selamat datang, ${profile.name}!`, 'ph-user-circle');
-    setTimeout(()=>showPage(pendingRedirectPage), 600);
+    const form = document.getElementById('spa-login-form');
+    if(form) form.submit();
   }
 
   function getProfileByEmail(email) {
@@ -3355,21 +3379,51 @@
 
   function updateProfile(name, email, photoUrl) {
     const loginBtn = document.querySelector('.btn-login');
-    loginBtn.innerHTML = `<img src="${photoUrl}" style="width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);"> ${name}`;
-    loginBtn.onclick = ()=>showPage('account-page');
+    if(loginBtn) {
+      loginBtn.innerHTML = `<img src="${photoUrl}" style="width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);"> ${name}`;
+      loginBtn.onclick = ()=>showPage('account-page');
+    }
     document.querySelectorAll('.profile-img').forEach(el=>el.src=photoUrl);
-    document.querySelector('.profile-name').textContent = name;
-    document.querySelector('.profile-email').textContent = email;
+    const profileName = document.querySelector('.profile-name');
+    const profileEmail = document.querySelector('.profile-email');
+    if(profileName) profileName.textContent = name;
+    if(profileEmail) profileEmail.textContent = email;
   }
 
   function logout() {
     isLoggedIn = false;
     const loginBtn = document.querySelector('.btn-login');
-    loginBtn.innerHTML = '<i class="ph ph-user-circle" style="font-size:18px;"></i> Login';
-    loginBtn.onclick = ()=>showPage('login-page');
+    if(loginBtn) {
+      loginBtn.innerHTML = '<i class="ph ph-user-circle" style="font-size:18px;"></i> Login';
+      loginBtn.onclick = ()=>showPage('login-page');
+    }
     showToast('Anda telah keluar.', 'ph-sign-out');
     setTimeout(()=>showPage('login-page'), 600);
   }
+
+  const loginPasswordInput = document.getElementById('login-password');
+  const loginPasswordHidden = document.getElementById('login-password-hidden');
+  const spaLoginForm = document.getElementById('spa-login-form');
+
+  if (loginPasswordInput && loginPasswordHidden) {
+    loginPasswordInput.addEventListener('input', () => {
+      loginPasswordHidden.value = loginPasswordInput.value;
+    });
+  }
+
+  if (spaLoginForm && loginPasswordInput && loginPasswordHidden) {
+    spaLoginForm.addEventListener('submit', () => {
+      loginPasswordHidden.value = loginPasswordInput.value;
+    });
+  }
+
+  if (isLoggedIn && authenticatedProfile) {
+    updateProfile(authenticatedProfile.name, authenticatedProfile.email, authenticatedProfile.photoUrl);
+  }
+
+  @if ($errors->any())
+    showPage('login-page');
+  @endif
 
   function switchOwnedTab(name, el) {
     document.querySelectorAll('.owned-tab').forEach(t=>t.classList.remove('active'));

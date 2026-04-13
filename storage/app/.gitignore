@@ -1,3 +1,19 @@
-*
+# Allow public folder
 !public/
 !.gitignore
+
+# Environment files (WAJIB)
+.env
+.env.*
+
+# Storage sensitive files
+/storage/*.key
+/storage/*.pem
+/storage/*.crt
+/storage/*.csr
+/storage/*.pfx
+/storage/*.der
+/storage/*.jks
+/storage/*.p12
+/storage/*.keystore
+/storage/*.truststore
