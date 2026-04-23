@@ -5,7 +5,10 @@ use App\Http\Controllers\EbookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\PurchaseController;
+<<<<<<< HEAD
 use App\Http\Controllers\UserAvatarController;
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EbookController as AdminEbookController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -28,7 +31,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // Google OAuth
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+<<<<<<< HEAD
 Route::get('/users/{user}/avatar', [UserAvatarController::class, 'show'])->name('users.avatar');
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 
 
 // Public routes

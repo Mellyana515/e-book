@@ -17,7 +17,10 @@ class User extends Authenticatable
         'password',
         'role',
         'google_id',
+<<<<<<< HEAD
         'avatar',
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     ];
 
     protected $hidden = [
@@ -32,10 +35,13 @@ class User extends Authenticatable
         'two_factor_expires_at' => 'datetime',
     ];
 
+<<<<<<< HEAD
     protected $appends = [
         'avatar_url',
     ];
 
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     public function isAdmin(): bool
     {
         return strtolower($this->role) === 'admin';
@@ -50,6 +56,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Purchase::class)->where('payment_status', 'approved');
     }
+<<<<<<< HEAD
 
     public function getAvatarUrlAttribute(): string
     {
@@ -80,4 +87,6 @@ class User extends Authenticatable
     {
         return str_starts_with($value, 'http://') || str_starts_with($value, 'https://');
     }
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 }

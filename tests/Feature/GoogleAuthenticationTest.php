@@ -24,7 +24,10 @@ class GoogleAuthenticationTest extends TestCase
         $socialiteUser->shouldReceive('getId')->andReturn('google-user-1');
         $socialiteUser->shouldReceive('getEmail')->andReturn('user@gmail.com');
         $socialiteUser->shouldReceive('getName')->andReturn('Google User');
+<<<<<<< HEAD
         $socialiteUser->shouldReceive('getAvatar')->andReturn('https://lh3.googleusercontent.com/user-photo');
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 
         $provider = Mockery::mock(Provider::class);
         $provider->shouldReceive('stateless')->andReturnSelf();
@@ -40,7 +43,10 @@ class GoogleAuthenticationTest extends TestCase
             'email' => 'user@gmail.com',
             'role' => 'user',
             'google_id' => 'google-user-1',
+<<<<<<< HEAD
             'avatar' => 'https://lh3.googleusercontent.com/user-photo',
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         ]);
 
         $user = User::where('email', 'user@gmail.com')->first();
@@ -65,7 +71,10 @@ class GoogleAuthenticationTest extends TestCase
         $socialiteUser->shouldReceive('getId')->andReturn('google-admin-1');
         $socialiteUser->shouldReceive('getEmail')->andReturn('admin@gmail.com');
         $socialiteUser->shouldReceive('getName')->andReturn('Admin');
+<<<<<<< HEAD
         $socialiteUser->shouldReceive('getAvatar')->andReturn('https://lh3.googleusercontent.com/admin-photo');
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 
         $provider = Mockery::mock(Provider::class);
         $provider->shouldReceive('stateless')->andReturnSelf();

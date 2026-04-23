@@ -690,6 +690,7 @@
     .fav-header {
       display: flex;
       justify-content: space-between;
+<<<<<<< HEAD
       align-items: flex-start;
       margin-bottom: 8px;
     }
@@ -699,10 +700,21 @@
       font-size: 30px;
       font-weight: 700;
       color: #20232d;
+=======
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .fav-heading {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
       display: flex;
       align-items: center;
       gap: 10px;
     }
+<<<<<<< HEAD
     .fav-heading i { color: #ef476f; font-size: 28px; }
     .btn-manage {
       font-size: 14px;
@@ -760,6 +772,37 @@
       height: 16px;
       background: #cfd5e3;
     }
+=======
+    .fav-heading i { color: #ef4444; }
+    .btn-manage {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(37,99,235,0.08);
+      border: none;
+      padding: 7px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-manage:hover { background: rgba(37,99,235,0.15); }
+    .fav-count { font-size: 13px; color: var(--muted); margin-bottom: 22px; display: flex; align-items: center; gap: 5px; }
+    .fav-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .fav-card {
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 12px;
+      transition: all 0.3s var(--ease-smooth);
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+    }
+    .fav-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(37,99,235,0.2); }
+    .fav-card img { width: 100%; border-radius: 12px; height: 180px; object-fit: cover; margin-bottom: 10px; transition: transform 0.3s; }
+    .fav-card:hover img { transform: scale(1.03); }
+    .fav-cover-wrap { position: relative; overflow: hidden; border-radius: 12px; }
+    .fav-title { font-weight: 600; font-size: 14px; color: var(--ink); }
+    .fav-author { font-size: 12px; color: var(--muted); margin-top: 3px; }
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 
     /* ─── RAK BUKU ─── */
     .page-header {
@@ -2017,8 +2060,11 @@
       .login-shell { flex-direction: column; }
       .login-left { min-height: 260px; }
       .login-left-overlay { display: none; }
+<<<<<<< HEAD
       .fav-heading { font-size: 24px; }
       .fav-title { font-size: 16px; }
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     }
   </style>
 </head>
@@ -2050,6 +2096,7 @@
     @endguest
     @auth
       <div style="display:flex; align-items:center; gap:12px;">
+<<<<<<< HEAD
         <button type="button" class="btn-login js-profile-trigger" onclick="showPage('account-page')">
           <img
             src="{{ Auth::user()->avatar_url }}"
@@ -2059,6 +2106,9 @@
           >
           {{ Auth::user()->name }}
         </button>
+=======
+        <span style="font-weight:700; color:#0f172a; white-space:nowrap;">Halo, {{ Auth::user()->name }}</span>
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         <form action="{{ route('logout') }}" method="POST" style="margin:0;">
           @csrf
           <button type="submit" class="btn-login" style="background:#ef4444; color:#fff;">Logout</button>
@@ -2270,6 +2320,7 @@
     <!-- Logged-in state -->
     <div id="fav-logged" style="display:none;">
       <div class="fav-header">
+<<<<<<< HEAD
         <div class="fav-heading-group">
           <div class="fav-heading"><i class="ph-fill ph-heart"></i> Favorit Saya</div>
         </div>
@@ -2300,6 +2351,36 @@
         <div class="fav-card" onclick="openFavoriteBook('clean-code')">
           <div class="fav-cover-wrap"><img src="https://images-na.ssl-images-amazon.com/images/I/41SH-SvWPxL.jpg" alt="Clean Code"></div>
           <div class="fav-meta-row"><div class="fav-text"><div class="fav-title">Clean Code</div><div class="fav-author">Robert C. Martin</div></div><div class="fav-actions"><i class="ph ph-dots-three-outline"></i><span class="fav-action-divider"></span></div></div>
+=======
+        <div class="fav-heading"><i class="ph-fill ph-heart"></i> Favorit Saya</div>
+        <button class="btn-manage">Kelola</button>
+      </div>
+      <div class="fav-count"><i class="ph ph-books"></i> 6 buku tersimpan</div>
+      <div class="fav-grid">
+        <div class="fav-card" onclick="openFavoriteBook('laut-bercerita')">
+          <div class="fav-cover-wrap"><img src="{{ asset('laut-bercerita.jpeg') }}" alt="Laut Bercerita"></div>
+          <div class="fav-title">Laut Bercerita</div><div class="fav-author">Leila S. Chudori</div>
+        </div>
+        <div class="fav-card" onclick="openFavoriteBook('atomic-habits')">
+          <div class="fav-cover-wrap"><span class="book-badge-free" style="position:absolute;top:8px;left:8px;"><i class="ph ph-check-circle"></i> Gratis</span><img src="https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg" alt="Atomic Habits"></div>
+          <div class="fav-title">Atomic Habits</div><div class="fav-author">James Clear</div>
+        </div>
+        <div class="fav-card" onclick="openFavoriteBook('sapiens')">
+          <div class="fav-cover-wrap"><img src="https://images-na.ssl-images-amazon.com/images/I/713jIoMO3UL.jpg" alt="Sapiens"></div>
+          <div class="fav-title">Sapiens</div><div class="fav-author">Yuval Noah Harari</div>
+        </div>
+        <div class="fav-card" onclick="openFavoriteBook('mindset')">
+          <div class="fav-cover-wrap"><span class="book-badge-free" style="position:absolute;top:8px;left:8px;"><i class="ph ph-check-circle"></i> Gratis</span><img src="{{ asset('mindset.jpeg') }}" alt="Mindset"></div>
+          <div class="fav-title">Mindset</div><div class="fav-author">Carol S. Dweck</div>
+        </div>
+        <div class="fav-card" onclick="openFavoriteBook('psychology-of-money')">
+          <div class="fav-cover-wrap"><span class="book-badge-free" style="position:absolute;top:8px;left:8px;"><i class="ph ph-check-circle"></i> Gratis</span><img src="https://images-na.ssl-images-amazon.com/images/I/71g2ednj0JL.jpg" alt="Psychology of Money"></div>
+          <div class="fav-title">Psychology of Money</div><div class="fav-author">Morgan Housel</div>
+        </div>
+        <div class="fav-card" onclick="openFavoriteBook('clean-code')">
+          <div class="fav-cover-wrap"><img src="https://images-na.ssl-images-amazon.com/images/I/41SH-SvWPxL.jpg" alt="Clean Code"></div>
+          <div class="fav-title">Clean Code</div><div class="fav-author">Robert C. Martin</div>
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         </div>
       </div>
     </div>
@@ -2312,7 +2393,11 @@
       <div class="page-actions">
         <div class="icon-btn"><i class="ph ph-bell"></i></div>
         <div class="icon-btn"><i class="ph ph-magnifying-glass"></i></div>
+<<<<<<< HEAD
         <img src="{{ Auth::check() ? Auth::user()->avatar_url : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=200' }}" alt="Foto profil" class="avatar-sm profile-img" data-user-avatar>
+=======
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" class="avatar-sm">
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
       </div>
     </div>
     <div class="rak-tabs">
@@ -2611,13 +2696,21 @@
         <div class="page-heading">Akun Saya</div>
         <div class="page-actions">
           <div class="icon-btn"><i class="ph ph-bell"></i></div>
+<<<<<<< HEAD
           <img src="{{ Auth::check() ? Auth::user()->avatar_url : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=200' }}" alt="Foto profil" class="avatar-sm profile-img" data-user-avatar>
+=======
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" class="avatar-sm profile-img">
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         </div>
       </div>
       <div class="profile-card">
         <div class="profile-info">
           <div class="profile-avatar-wrap">
+<<<<<<< HEAD
             <img src="{{ Auth::check() ? Auth::user()->avatar_url : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&s=200' }}" alt="Foto profil" class="profile-img" data-user-avatar>
+=======
+            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80" class="profile-img">
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
             <div class="profile-online"></div>
           </div>
           <div>
@@ -2914,6 +3007,7 @@
         <h2>Selamat Datang Kembali!</h2>
         <p>Login untuk melanjutkan perjalanan membaca Anda.</p>
 
+<<<<<<< HEAD
         @if (session('error'))
           <div style="margin-bottom:16px;padding:12px 14px;border-radius:12px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:13px;line-height:1.6;">
             {{ session('error') }}
@@ -2926,6 +3020,8 @@
           </div>
         @endif
 
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         @if ($errors->any())
           <div style="margin-bottom:16px;padding:12px 14px;border-radius:12px;background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;font-size:13px;line-height:1.6;">
             {{ $errors->first() }}
@@ -3010,7 +3106,11 @@
 
 <script>
   let isLoggedIn = @json(Auth::check());
+<<<<<<< HEAD
   const authenticatedProfile = @json(Auth::check() ? ['name' => Auth::user()->name, 'email' => Auth::user()->email, 'photoUrl' => Auth::user()->avatar_url] : null);
+=======
+  const authenticatedProfile = @json(Auth::check() ? ['name' => Auth::user()->name, 'email' => Auth::user()->email, 'photoUrl' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80'] : null);
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
   let pendingRedirectPage = 'payment-page';
   let selectedVABank = 'BCA';
   let selectedWallet = 'GoPay';
@@ -3321,6 +3421,7 @@
     showPage('reader-page');
   }
 
+<<<<<<< HEAD
   function handleReadBook() {
     if(!currentBook) return;
     if(!isBookFree(currentBook) && !purchasedBooks.has(currentBookId)) {
@@ -3336,6 +3437,8 @@
     showPage('reader-page');
   }
 
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
   function openReaderCurrentBook() {
     if(!isBookFree(currentBook) && !purchasedBooks.has(currentBookId)){
       showToast('Buku ini perlu dibeli terlebih dahulu.', 'ph-warning');
@@ -3439,6 +3542,7 @@
     if(form) form.submit();
   }
 
+<<<<<<< HEAD
   function updateProfile(name, email, photoUrl) {
     const profileTrigger = document.querySelector('.js-profile-trigger');
     if(profileTrigger) {
@@ -3449,6 +3553,21 @@
       el.src = photoUrl;
       el.alt = `Foto profil ${name}`;
     });
+=======
+  function getProfileByEmail(email) {
+    const e = (email||'').trim().toLowerCase();
+    if(e==='amanda@gmail.com') return {name:'Amanda',email:'amanda@gmail.com',photoUrl:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=80'};
+    return {name:'User',email:e||'user@gmail.com',photoUrl:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200'};
+  }
+
+  function updateProfile(name, email, photoUrl) {
+    const loginBtn = document.querySelector('.btn-login');
+    if(loginBtn) {
+      loginBtn.innerHTML = `<img src="${photoUrl}" style="width:26px;height:26px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.4);"> ${name}`;
+      loginBtn.onclick = ()=>showPage('account-page');
+    }
+    document.querySelectorAll('.profile-img').forEach(el=>el.src=photoUrl);
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     const profileName = document.querySelector('.profile-name');
     const profileEmail = document.querySelector('.profile-email');
     if(profileName) profileName.textContent = name;
@@ -3486,7 +3605,11 @@
     updateProfile(authenticatedProfile.name, authenticatedProfile.email, authenticatedProfile.photoUrl);
   }
 
+<<<<<<< HEAD
   @if (($initialPage ?? null) === 'login-page' || $errors->any() || session('error') || session('info'))
+=======
+  @if ($errors->any())
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     showPage('login-page');
   @endif
 

@@ -668,6 +668,26 @@
 </head>
 <body>
 
+<<<<<<< HEAD
+=======
+    {{-- Top bar --}}
+    <div class="topbar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-envelope me-1"></i> support@bookstore.com</span>
+            <span>
+                @guest
+                    <a href="{{ route('login') }}">Login</a>
+                    &nbsp;|&nbsp;
+                    <a href="{{ route('register') }}">Register</a>
+                @endguest
+                @auth
+                    Welcome, <strong class="text-white">{{ auth()->user()->name }}</strong>
+                @endauth
+            </span>
+        </div>
+    </div>
+
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     @hasSection('hide_navbar')
     @else
     {{-- Main Navbar --}}
@@ -808,6 +828,67 @@
     </section>
     @endif
 
+<<<<<<< HEAD
+=======
+    {{-- Footer --}}
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <div class="footer-brand mb-3"><i class="bi bi-book-half me-2" style="color: var(--accent);"></i>Book<span>Store</span></div>
+                    <p style="line-height: 1.8; max-width: 280px;">Your curated digital library for the best ebooks across all genres — programming, design, business & more.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <h6>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('home') }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Home</a></li>
+                        <li><a href="{{ route('home') }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Browse Books</a></li>
+                        @guest
+                            <li><a href="{{ route('login') }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Login</a></li>
+                            <li><a href="{{ route('register') }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Register</a></li>
+                        @endguest
+                        @auth
+                            <li><a href="{{ route('library') }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>My Library</a></li>
+                        @endauth
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2">
+                    <h6>Categories</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ route('home', ['category' => 'Programming']) }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Programming</a></li>
+                        <li><a href="{{ route('home', ['category' => 'Design']) }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Design</a></li>
+                        <li><a href="{{ route('home', ['category' => 'Business']) }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Business</a></li>
+                        <li><a href="{{ route('home', ['category' => 'Fiction']) }}"><i class="bi bi-chevron-right me-1" style="font-size: .7rem;"></i>Fiction</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Payment Info</h6>
+                    <p>We accept manual bank transfer payments. Simply upload your proof of transfer and our team will approve your purchase shortly.</p>
+                    <div class="d-flex gap-2 flex-wrap mt-2">
+                        <span class="badge" style="background: #1f2937; color: #9ca3af; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem;">
+                            <i class="bi bi-bank me-1"></i>Bank Transfer
+                        </span>
+                        <span class="badge" style="background: #1f2937; color: #9ca3af; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem;">
+                            <i class="bi bi-shield-check me-1"></i>Secure
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <span>&copy; {{ date('Y') }} BookStore. All rights reserved.</span>
+                <span>Made with <i class="bi bi-heart-fill" style="color: var(--accent);"></i> for book lovers</span>
+            </div>
+        </div>
+    </footer>
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')

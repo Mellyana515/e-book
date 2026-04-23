@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Schema;
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
@@ -55,6 +58,7 @@ class GoogleAuthController extends Controller
 
         if ($user) {
             // Link google_id if logging in via email match
+<<<<<<< HEAD
             $user->update($this->googleProfileAttributes($googleUser, [
                 'google_id' => $user->google_id ?: $googleUser->getId(),
                 'name' => $googleUser->getName() ?: $user->name,
@@ -63,11 +67,24 @@ class GoogleAuthController extends Controller
             // Create new user
             $user = User::create($this->googleProfileAttributes($googleUser, [
                 'name'      => $googleUser->getName() ?: 'Pengguna Google',
+=======
+            if (!$user->google_id) {
+                $user->update(['google_id' => $googleUser->getId()]);
+            }
+        } else {
+            // Create new user
+            $user = User::create([
+                'name'      => $googleUser->getName(),
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
                 'email'     => $googleUser->getEmail(),
                 'google_id' => $googleUser->getId(),
                 'password'  => null,
                 'role'      => 'user',
+<<<<<<< HEAD
             ]));
+=======
+            ]);
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         }
 
         // Login user
@@ -81,11 +98,18 @@ class GoogleAuthController extends Controller
             'success' => true,
             'message' => 'Logged in successfully',
             'user' => [
+<<<<<<< HEAD
                 'id'         => $user->id,
                 'name'       => $user->name,
                 'email'      => $user->email,
                 'role'       => $user->role,
                 'avatar_url' => $user->avatar_url,
+=======
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'role'  => $user->role,
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
             ],
             'token' => $token,
             'redirect' => $user->isAdmin() ? '/admin/dashboard' : '/',
@@ -108,11 +132,18 @@ class GoogleAuthController extends Controller
         return response()->json([
             'success' => true,
             'user' => [
+<<<<<<< HEAD
                 'id'         => $user->id,
                 'name'       => $user->name,
                 'email'      => $user->email,
                 'role'       => $user->role,
                 'avatar_url' => $user->avatar_url,
+=======
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'role'  => $user->role,
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
             ],
         ]);
     }
@@ -131,6 +162,7 @@ class GoogleAuthController extends Controller
             'message' => 'Logged out successfully',
         ]);
     }
+<<<<<<< HEAD
 
     private function googleProfileAttributes(object $googleUser, array $attributes): array
     {
@@ -147,4 +179,6 @@ class GoogleAuthController extends Controller
 
         return $hasAvatarColumn ??= Schema::hasColumn('users', 'avatar');
     }
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 }

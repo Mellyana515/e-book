@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Schema;
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 use Illuminate\Validation\Rules\Password;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -23,10 +26,14 @@ class AuthController extends Controller
         if (Auth::check()) {
             return $this->redirectByRole();
         }
+<<<<<<< HEAD
 
         return view('spa', [
             'initialPage' => 'login-page',
         ]);
+=======
+        return view('auth.login');
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     }
 
     public function login(Request $request)
@@ -198,7 +205,11 @@ class AuthController extends Controller
         return Socialite::driver('google')->stateless()->redirect();
     }
 
+<<<<<<< HEAD
     public function handleGoogleCallback(Request $request)
+=======
+    public function handleGoogleCallback()
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
     {
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
@@ -217,16 +228,24 @@ class AuthController extends Controller
                 $user = User::where('email', $googleUser->getEmail())->first();
                 if ($user) {
                     // Link google_id if logging in via email match
+<<<<<<< HEAD
                     $user->update($this->googleProfileAttributes($googleUser, [
                         'google_id' => $googleUser->getId(),
                     ]));
                 } else {
                     $user = User::create($this->googleProfileAttributes($googleUser, [
                         'name'      => $googleUser->getName() ?: 'Pengguna Google',
+=======
+                    $user->update(['google_id' => $googleUser->getId()]);
+                } else {
+                    $user = User::create([
+                        'name'      => $googleUser->getName(),
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
                         'email'     => $googleUser->getEmail(),
                         'google_id' => $googleUser->getId(),
                         'password'  => null,
                         'role'      => 'user',
+<<<<<<< HEAD
                     ]));
                 }
             } else {
@@ -236,6 +255,14 @@ class AuthController extends Controller
             }
 
             return $this->startTwoFactorChallenge($request, $user, true);
+=======
+                    ]);
+                }
+            }
+
+
+            return $this->startTwoFactorChallenge(request(), $user, true);
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         } catch (\Exception $e) {
             Log::error('User creation error', [
                 'message' => $e->getMessage(),
@@ -263,9 +290,15 @@ class AuthController extends Controller
                 'user_id' => $user->id,
             ]);
 
+<<<<<<< HEAD
             return redirect()->route('login')->withErrors([
                 'email' => 'Kode OTP gagal dikirim ke email. Periksa konfigurasi SMTP/mail server Anda lalu coba lagi.',
             ])->withInput($request->only('email', 'role'));
+=======
+            return back()->withErrors([
+                'email' => 'Kode OTP gagal dikirim ke email. Periksa konfigurasi SMTP/mail server Anda lalu coba lagi.',
+            ])->onlyInput('email');
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
         }
 
         $request->session()->put(self::TWO_FACTOR_SESSION_KEY, [
@@ -288,6 +321,7 @@ class AuthController extends Controller
 
         Mail::to($user->email)->send(new TwoFactorCodeMail($user, $code));
     }
+<<<<<<< HEAD
 
     private function googleProfileAttributes(object $googleUser, array $attributes): array
     {
@@ -304,4 +338,6 @@ class AuthController extends Controller
 
         return $hasAvatarColumn ??= Schema::hasColumn('users', 'avatar');
     }
+=======
+>>>>>>> cc3ad759e8806e459c58525c9146fc5b7d1bfce0
 }
